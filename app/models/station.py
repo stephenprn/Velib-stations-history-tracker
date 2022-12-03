@@ -2,10 +2,11 @@ from sqlalchemy import Column
 from sqlalchemy.types import Integer, BigInteger, String, Boolean, JSON
 
 from typing import Dict
-from ._shared import ModelBase
+from models._shared import ModelBase
+
 
 class Station(ModelBase):
-    __tablename__ = 'station'
+    __tablename__ = "station"
 
     station_code = Column(String(128), nullable=False)
     station_id = Column(BigInteger, nullable=False)
@@ -21,25 +22,25 @@ class Station(ModelBase):
     num_bikes_available_types = Column(JSON, nullable=False)
 
     @staticmethod
-    def from_dict(data: Dict) -> 'Station':
+    def from_dict(data: Dict) -> "Station":
         station = Station()
 
-        station.station_code = data['stationCode']
-        station.station_id = data['station_id']
+        station.station_code = data["stationCode"]
+        station.station_id = data["station_id"]
 
-        station.is_installed = data['is_installed']
-        station.is_renting = data['is_renting']
-        station.is_returning = data['is_returning']
+        station.is_installed = data["is_installed"]
+        station.is_renting = data["is_renting"]
+        station.is_returning = data["is_returning"]
 
-        station.last_reported = data['last_reported']
+        station.last_reported = data["last_reported"]
 
-        station.num_bikes_available = data['num_bikes_available']
-        station.num_docks_available = data['num_docks_available']
+        station.num_bikes_available = data["num_bikes_available"]
+        station.num_docks_available = data["num_docks_available"]
 
         num_bikes_available_types = {}
 
-        for type_ in data['num_bikes_available_types']:
-            num_bikes_available_types = { **num_bikes_available_types, **type_ }
+        for type_ in data["num_bikes_available_types"]:
+            num_bikes_available_types = {**num_bikes_available_types, **type_}
 
         station.num_bikes_available_types = num_bikes_available_types
 
