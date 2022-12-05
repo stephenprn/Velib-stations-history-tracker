@@ -1,7 +1,5 @@
 import requests
 import db
-import schedule
-import time
 
 from models.station import Station
 
@@ -23,15 +21,6 @@ def scrap_api():
     db.session.commit()
 
 
-def schedule_scrap_api():
-    schedule.every(15).minutes.do(scrap_api)
-
-    while True:
-        schedule.run_pending()
-        time.sleep(1)
-
-
 if __name__ == "__main__":
     init_db()
     scrap_api()
-    schedule_scrap_api()
